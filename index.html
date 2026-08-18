@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PUSHOK — A childhood cat becomes a crypto token</title>
+  <meta name="description" content="PUSHOK is a crypto project built around a childhood cat, 17 years of memories, and a 30-day journey from zero.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#100604;
+      --bg2:#1b0804;
+      --orange:#ff6a00;
+      --orange2:#ff9f1a;
+      --red:#ff2e00;
+      --yellow:#ffd84d;
+      --cream:#fff4d6;
+      --muted:#d7bda0;
+      --line:rgba(255,180,70,.22);
+      --card:rgba(42,12,5,.72);
+      --shadow:0 0 50px rgba(255,88,0,.18);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--cream);
+      background:
+        radial-gradient(circle at 75% 10%, rgba(255,128,0,.22), transparent 28%),
+        radial-gradient(circle at 15% 40%, rgba(255,35,0,.12), transparent 28%),
+        linear-gradient(180deg,#0b0302 0%,#160604 45%,#0b0302 100%);
+      font-family:Inter,system-ui,sans-serif;
+      overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none}
+    .noise{
+      position:fixed;inset:0;pointer-events:none;opacity:.035;z-index:50;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+    }
+    .wrap{width:min(1180px,92vw);margin:auto}
+    nav{
+      position:fixed;top:0;left:0;right:0;z-index:40;
+      background:linear-gradient(180deg,rgba(10,2,1,.92),rgba(10,2,1,.5),transparent);
+      backdrop-filter:blur(10px);
+    }
+    .navin{height:78px;display:flex;align-items:center;justify-content:space-between}
+    .brand{font-family:Anton,sans-serif;letter-spacing:.08em;font-size:27px;color:var(--yellow);text-shadow:0 0 22px rgba(255,180,0,.35)}
+    .navlinks{display:flex;gap:26px;align-items:center;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.12em}
+    .navlinks a{opacity:.82;transition:.2s}.navlinks a:hover{opacity:1;color:var(--yellow)}
+    .navcta{
+      padding:11px 17px;border:1px solid rgba(255,208,90,.5);border-radius:999px;
+      background:linear-gradient(90deg,rgba(255,83,0,.18),rgba(255,190,40,.13));
+    }
+    .hero{min-height:100vh;display:grid;align-items:center;padding:130px 0 70px;position:relative}
+    .hero:before{
+      content:"";position:absolute;width:560px;height:560px;right:-170px;top:90px;border-radius:50%;
+      background:radial-gradient(circle,rgba(255,107,0,.3),transparent 68%);filter:blur(10px)
+    }
+    .heroGrid{display:grid;grid-template-columns:1fr 1.05fr;gap:50px;align-items:center}
+    .eyebrow{
+      display:inline-flex;gap:10px;align-items:center;padding:8px 13px;border:1px solid var(--line);
+      border-radius:999px;background:rgba(255,113,0,.08);color:var(--yellow);font-size:11px;font-weight:900;letter-spacing:.15em;text-transform:uppercase
+    }
+    .dot{width:7px;height:7px;border-radius:50%;background:var(--orange2);box-shadow:0 0 15px var(--orange2)}
+    h1{
+      font-family:Anton,sans-serif;font-size:clamp(78px,13vw,170px);line-height:.82;letter-spacing:.015em;margin:22px 0 18px;
+      color:#fff1cf;text-shadow:0 0 30px rgba(255,104,0,.2)
+    }
+    .gradientText{background:linear-gradient(90deg,#fff3bf,#ffbd2e 38%,#ff4a00 85%);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .lead{font-size:clamp(18px,2.2vw,26px);line-height:1.25;max-width:610px;color:#ffe4b8}
+    .heroBtns{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 19px;border-radius:12px;
+      font-weight:900;font-size:13px;text-transform:uppercase;letter-spacing:.08em;transition:.2s
+    }
+    .btnPrimary{background:linear-gradient(135deg,var(--yellow),var(--orange));color:#210800;box-shadow:0 0 30px rgba(255,112,0,.25)}
+    .btnSecondary{border:1px solid var(--line);background:rgba(255,120,0,.06)}
+    .btn:hover{transform:translateY(-2px);filter:brightness(1.08)}
+    .heroArt{position:relative}
+    .heroArt img{width:100%;display:block;border-radius:30px;filter:drop-shadow(0 25px 50px rgba(255,81,0,.28))}
+    .heroGlow{position:absolute;inset:7% 8%;border-radius:40px;box-shadow:0 0 100px rgba(255,124,0,.22);pointer-events:none}
+    .ticker{
+      margin-top:28px;padding:13px 15px;border:1px solid var(--line);border-radius:14px;
+      background:rgba(20,5,2,.72);font-size:12px;color:#e8c99f;display:flex;justify-content:space-between;gap:15px;align-items:center
+    }
+    .ticker b{color:var(--yellow);font-size:16px}.copy{color:var(--orange2);font-weight:800}
+    section{padding:110px 0}
+    .sectionHead{display:flex;justify-content:space-between;gap:30px;align-items:end;margin-bottom:38px}
+    .kicker{color:var(--orange2);font-size:12px;font-weight:900;letter-spacing:.18em;text-transform:uppercase}
+    h2{font-family:Anton,sans-serif;font-size:clamp(52px,8vw,92px);line-height:.9;margin:10px 0 0;letter-spacing:.02em}
+    .sectionHead p{max-width:430px;color:var(--muted);line-height:1.6}
+    .storyGrid{display:grid;grid-template-columns:1.05fr .95fr;gap:24px}
+    .card{
+      border:1px solid var(--line);border-radius:24px;background:linear-gradient(145deg,rgba(50,14,5,.9),rgba(20,6,3,.7));
+      box-shadow:var(--shadow);overflow:hidden
+    }
+    .storyText{padding:38px}
+    .storyText p{font-size:18px;line-height:1.75;color:#f2d5aa}
+    .quote{font-family:Anton,sans-serif;font-size:36px;line-height:1.05;color:var(--yellow);margin:35px 0 0}
+    .storyImg{min-height:500px}
+    .storyImg img{width:100%;height:100%;object-fit:cover;display:block}
+    .timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .step{padding:28px;min-height:220px;position:relative}
+    .num{font-family:Anton,sans-serif;color:var(--orange);font-size:54px;line-height:1}
+    .step h3{font-size:21px;margin:25px 0 10px}.step p{color:var(--muted);line-height:1.6;margin:0}
+    .gallery{display:grid;grid-template-columns:1.25fr .75fr;gap:18px}
+    .gallery .big{grid-row:span 2}
+    .gallery img{width:100%;height:100%;min-height:250px;object-fit:cover;border-radius:22px;border:1px solid var(--line);display:block}
+    .challenge{
+      padding:42px;border-radius:28px;border:1px solid rgba(255,187,49,.32);
+      background:
+        radial-gradient(circle at 80% 20%,rgba(255,75,0,.25),transparent 32%),
+        linear-gradient(135deg,rgba(90,22,5,.85),rgba(25,6,3,.85));
+      position:relative;overflow:hidden
+    }
+    .challenge h2{max-width:720px}
+    .challenge p{color:#f4d8ae;max-width:690px;font-size:18px;line-height:1.65}
+    .days{display:flex;gap:10px;align-items:center;margin-top:30px;flex-wrap:wrap}
+    .day{padding:11px 14px;border-radius:10px;border:1px solid var(--line);font-size:12px;font-weight:900;color:#e7c79c}
+    .day.active{background:linear-gradient(90deg,var(--red),var(--orange));color:#fff;border-color:transparent}
+    .socials{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .social{padding:28px;display:flex;justify-content:space-between;align-items:center}
+    .social strong{font-size:20px}.social span{color:var(--orange2);font-weight:900}
+    footer{padding:60px 0 80px;border-top:1px solid var(--line);color:#bfa485}
+    .foot{display:flex;justify-content:space-between;gap:30px;align-items:center}
+    .disclaimer{font-size:11px;line-height:1.6;max-width:700px}
+    @media(max-width:850px){
+      .navlinks a:not(.navcta){display:none}
+      .heroGrid,.storyGrid{grid-template-columns:1fr}
+      .hero{padding-top:110px}
+      .heroArt{order:-1}
+      .timeline,.socials{grid-template-columns:1fr}
+      .gallery{grid-template-columns:1fr}
+      .gallery .big{grid-row:auto}
+      .sectionHead{display:block}
+      .sectionHead p{margin-top:20px}
+      .storyImg{min-height:360px}
+      .foot{display:block}
+    }
+  </style>
+</head>
+<body>
+<div class="noise"></div>
+
+<nav>
+  <div class="wrap navin">
+    <a class="brand" href="#top">$PUSHOK</a>
+    <div class="navlinks">
+      <a href="#story">Story</a>
+      <a href="#project">Project</a>
+      <a href="#journey">30 Days</a>
+      <a href="#socials" class="navcta">Follow</a>
+    </div>
+  </div>
+</nav>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap heroGrid">
+      <div>
+        <div class="eyebrow"><span class="dot"></span> A childhood story, going online</div>
+        <h1><span class="gradientText">PUSHOK</span></h1>
+        <div class="lead">I’m turning my childhood cat into a crypto token — and building the whole project from scratch in 30 days.</div>
+        <div class="heroBtns">
+          <a class="btn btnPrimary" href="#story">Enter the story ↓</a>
+          <a class="btn btnSecondary" href="https://x.com/YOUR_HANDLE" target="_blank" rel="noopener">X / Twitter ↗</a>
+          <a class="btn btnSecondary" href="https://www.tiktok.com/@YOUR_HANDLE" target="_blank" rel="noopener">TikTok ↗</a>
+        </div>
+        <div class="ticker">
+          <span><b>$PUSHOK</b> · TOKEN STATUS: <span style="color:#ff9f1a">COMING SOON</span></span>
+          <span class="copy">30 DAYS / 1 STORY / 1 CAT</span>
+        </div>
+      </div>
+      <div class="heroArt">
+        <div class="heroGlow"></div>
+        <img src="assets/Gemini_Generated_Image_x9nt3ux9nt3ux9nt.png" alt="PUSHOK the orange childhood cat toy">
+      </div>
+    </div>
+  </section>
+
+  <section id="story">
+    <div class="wrap">
+      <div class="sectionHead">
+        <div><div class="kicker">01 / Origin</div><h2>IT STARTED<br>WITH A CAT.</h2></div>
+        <p>This isn’t just a random mascot. PUSHOK has been part of one person’s life for almost 17 years — from a childhood gift to the face of a new internet project.</p>
+      </div>
+      <div class="storyGrid">
+        <div class="card storyText">
+          <p>This little orange cat was a gift from my grandma. I’ve had him for almost 17 years, and he has been with me through pretty much every stage of my life.</p>
+          <p>One day, while thinking about creating my own crypto project, I looked at him and thought: <strong>why not him?</strong></p>
+          <p>That simple idea became PUSHOK — a project built around a childhood story, internet culture, and a community starting from zero.</p>
+          <div class="quote">“WHY NOT GIVE HIM A NEW LIFE ON THE INTERNET?”</div>
+        </div>
+        <div class="card storyImg">
+          <img src="assets/photo_5435993451053915171_y.jpg" alt="Original PUSHOK toy photo">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="project">
+    <div class="wrap">
+      <div class="sectionHead">
+        <div><div class="kicker">02 / The project</div><h2>MORE THAN<br>A TOKEN.</h2></div>
+        <p>The token is the destination. The story and the community are what we build along the way.</p>
+      </div>
+      <div class="timeline">
+        <div class="card step"><div class="num">01</div><h3>THE CAT</h3><p>A real childhood toy with a real history — now becoming the face of the project.</p></div>
+        <div class="card step"><div class="num">02</div><h3>THE LORE</h3><p>Memories, stories, images and new chapters that turn a simple mascot into a character.</p></div>
+        <div class="card step"><div class="num">03</div><h3>THE COMMUNITY</h3><p>People who discover PUSHOK early and follow the build from the very beginning.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="journey">
+    <div class="wrap">
+      <div class="challenge">
+        <div class="kicker">03 / The challenge</div>
+        <h2>30 DAYS.<br>FROM ZERO.</h2>
+        <p>Starting with almost no audience and a tiny budget, I’m documenting the process every day — building the brand, the website, the story and the community before the token launch.</p>
+        <div class="days">
+          <div class="day active">DAY 1</div><div class="day">DAY 10</div><div class="day">DAY 20</div><div class="day">DAY 30</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="sectionHead">
+        <div><div class="kicker">04 / The face</div><h2>MEET<br>PUSHOK.</h2></div>
+        <p>The internet version of PUSHOK can be a lot bigger than the original toy. These are just the first chapters.</p>
+      </div>
+      <div class="gallery">
+        <div class="big"><img src="assets/Gemini_Generated_Image_wxjehdwxjehdwxje.png" alt="PUSHOK cosmic banner"></div>
+        <div><img src="assets/Gemini_Generated_Image_6v4how6v4how6v4h.png" alt="PUSHOK as a builder"></div>
+        <div><img src="assets/Gemini_Generated_Image_j7x1tj7x1tj7x1tj.png" alt="PUSHOK project banner"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="socials">
+    <div class="wrap">
+      <div class="sectionHead">
+        <div><div class="kicker">05 / Join the journey</div><h2>FOLLOW<br>THE BUILD.</h2></div>
+        <p>Follow the project while it is still being built. The early days are part of the story.</p>
+      </div>
+      <div class="socials">
+        <a class="card social" href="https://x.com/YOUR_HANDLE" target="_blank" rel="noopener"><strong>X / Twitter</strong><span>FOLLOW ↗</span></a>
+        <a class="card social" href="https://www.tiktok.com/@YOUR_HANDLE" target="_blank" rel="noopener"><strong>TikTok</strong><span>FOLLOW ↗</span></a>
+        <a class="card social" href="#" onclick="alert('Community link coming soon.');return false;"><strong>Community</strong><span>SOON</span></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div class="brand">$PUSHOK</div>
+    <div class="disclaimer">
+      PUSHOK is a community/creative project. The token has not launched yet. Nothing on this website is financial advice.
+      Crypto assets are volatile. Do your own research and only use money you can afford to lose.
+    </div>
+  </div>
+</footer>
+</body>
+</html>
